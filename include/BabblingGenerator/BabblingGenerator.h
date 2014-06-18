@@ -10,14 +10,14 @@
 #ifndef BABBLINGGENERATOR_H
 #define BABBLINGGENERATOR_H
 
+#include <rtm/idl/BasicDataTypeSkel.h>
+#include <rtm/idl/ExtendedDataTypesSkel.h>
+#include <rtm/idl/InterfaceDataTypesSkel.h>
 #include <rtm/Manager.h>
 #include <rtm/DataFlowComponentBase.h>
 #include <rtm/CorbaPort.h>
 #include <rtm/DataInPort.h>
 #include <rtm/DataOutPort.h>
-#include <rtm/idl/BasicDataTypeSkel.h>
-#include <rtm/idl/ExtendedDataTypesSkel.h>
-#include <rtm/idl/InterfaceDataTypesSkel.h>
 
 // Service implementation headers
 // <rtc-template block="service_impl_h">
@@ -28,7 +28,8 @@
 // <rtc-template block="consumer_stub_h">
 
 // </rtc-template>
-
+#include <random>
+#include <functional>
 using namespace RTC;
 
 /*!
@@ -235,6 +236,37 @@ class BabblingGenerator
    * - DefaultValue: -1
    */
   int m_random_seed;
+  /*!
+   * 
+   * - Name:  number_of_joint
+   * - DefaultValue: 2
+   */
+  int m_number_of_joint;
+  /*!
+   * 
+   * - Name:  min
+   * - DefaultValue: -1.0, -1.0
+   */
+  std::string m_min;
+  /*!
+   * 
+   * - Name:  max
+   * - DefaultValue: +1.0, +1.0
+   */
+  std::string m_max;
+  /*!
+   * 
+   * - Name:  random_type
+   * - DefaultValue: mersenne_twister
+   */
+  std::string m_random_type;
+  /*!
+   * 
+   * - Name:  distribution_type
+   * - DefaultValue: uniform
+   */
+  std::string m_distribution_type;
+
 
   // </rtc-template>
 
@@ -281,6 +313,10 @@ class BabblingGenerator
   
   // </rtc-template>
 
+  std::mt19937* m_pMT;
+  std::vector<double> m_Maxs;
+  std::vector<double> m_Mins;
+  std::vector< std::uniform_real_distribution<double> > m_dist;
 };
 
 
