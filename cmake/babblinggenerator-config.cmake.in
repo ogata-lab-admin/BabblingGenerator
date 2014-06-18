@@ -1,0 +1,54 @@
+# BabblingGenerator CMake config file
+#
+# This file sets the following variables:
+# BabblingGenerator_FOUND - Always TRUE.
+# BabblingGenerator_INCLUDE_DIRS - Directories containing the BabblingGenerator include files.
+# BabblingGenerator_IDL_DIRS - Directories containing the BabblingGenerator IDL files.
+# BabblingGenerator_LIBRARIES - Libraries needed to use BabblingGenerator.
+# BabblingGenerator_DEFINITIONS - Compiler flags for BabblingGenerator.
+# BabblingGenerator_VERSION - The version of BabblingGenerator found.
+# BabblingGenerator_VERSION_MAJOR - The major version of BabblingGenerator found.
+# BabblingGenerator_VERSION_MINOR - The minor version of BabblingGenerator found.
+# BabblingGenerator_VERSION_REVISION - The revision version of BabblingGenerator found.
+# BabblingGenerator_VERSION_CANDIDATE - The candidate version of BabblingGenerator found.
+
+message(STATUS "Found BabblingGenerator-@PROJECT_VERSION@")
+set(BabblingGenerator_FOUND TRUE)
+
+find_package(<dependency> REQUIRED)
+
+#set(BabblingGenerator_INCLUDE_DIRS
+#    "@CMAKE_INSTALL_PREFIX@/include/@PROJECT_NAME_LOWER@-@PROJECT_VERSION_MAJOR@"
+#    ${<dependency>_INCLUDE_DIRS}
+#    )
+#
+#set(BabblingGenerator_IDL_DIRS
+#    "@CMAKE_INSTALL_PREFIX@/include/@PROJECT_NAME_LOWER@-@PROJECT_VERSION_MAJOR@/idl")
+set(BabblingGenerator_INCLUDE_DIRS
+    "@CMAKE_INSTALL_PREFIX@/include/@CPACK_PACKAGE_FILE_NAME@"
+    ${<dependency>_INCLUDE_DIRS}
+    )
+set(BabblingGenerator_IDL_DIRS
+    "@CMAKE_INSTALL_PREFIX@/include/@CPACK_PACKAGE_FILE_NAME@/idl")
+
+
+if(WIN32)
+    set(BabblingGenerator_LIBRARIES
+        "@CMAKE_INSTALL_PREFIX@/@LIB_INSTALL_DIR@/@CMAKE_SHARED_LIBRARY_PREFIX@@PROJECT_NAME_LOWER@@CMAKE_STATIC_LIBRARY_SUFFIX@"
+        ${<dependency>_LIBRARIES}
+        )
+else(WIN32)
+    set(BabblingGenerator_LIBRARIES
+        "@CMAKE_INSTALL_PREFIX@/@LIB_INSTALL_DIR@/@CMAKE_SHARED_LIBRARY_PREFIX@@PROJECT_NAME_LOWER@@CMAKE_SHARED_LIBRARY_SUFFIX@"
+        ${<dependency>_LIBRARIES}
+        )
+endif(WIN32)
+
+set(BabblingGenerator_DEFINITIONS ${<dependency>_DEFINITIONS})
+
+set(BabblingGenerator_VERSION @PROJECT_VERSION@)
+set(BabblingGenerator_VERSION_MAJOR @PROJECT_VERSION_MAJOR@)
+set(BabblingGenerator_VERSION_MINOR @PROJECT_VERSION_MINOR@)
+set(BabblingGenerator_VERSION_REVISION @PROJECT_VERSION_REVISION@)
+set(BabblingGenerator_VERSION_CANDIDATE @PROJECT_VERSION_CANDIDATE@)
+
